@@ -8,7 +8,7 @@ fs.removeSync(buildPath); // removes all files and folders under build directory
 const contractPath = path.resolve(
   __dirname,
   "contracts",
-  "<Your Contract>.sol"
+  "SampleContract.sol"
 );
 const source = fs.readFileSync(contractPath, "utf-8"); // path and encoding
 const output = solc.compile(source, 1).contracts;

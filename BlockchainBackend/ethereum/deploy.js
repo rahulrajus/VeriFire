@@ -3,7 +3,7 @@ const path = require("path");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 const Web3 = require("web3");
 
-const compiledContract = require("./build/<Your Contract>.json"); // get compiled bytecode and ABI (interface)
+const compiledContract = require("./build/SimpleAuction.json"); // get compiled bytecode and ABI (interface)
 
 /* Need the following arguments for the provider instantiation below:
     1. Get the mnemonic phrase you should have recieved when you started up MetaMask
@@ -12,8 +12,8 @@ const compiledContract = require("./build/<Your Contract>.json"); // get compile
         Steps: sign up for Infura at https://infura.io/, you should recieve an email will all the public ethereum networks - save the Rinkeby URL
 */
 const provider = new HDWalletProvider(
-  "<MetaMask Mnemonic phrase>", //mnemonic generates many accounts
-  "<Infura Provider URL with Access Key>" //provider url with access key
+  "outdoor speak bind drastic outdoor ride patient ride square code churn vote", //mnemonic generates many accounts
+  "https://rinkeby.infura.io/I7ZBA1Dyv6i1WLOGfndw" //provider url with access key
 );
 const web3 = new Web3(provider);
 
@@ -27,7 +27,7 @@ const deploy = async () => {
   )
     .deploy({
       data: compiledContract.bytecode,
-      arguments: ["<Your constructor arguments here>"]
+      arguments: [3600, "0x7d91277244e3d41ebd624a13d3c2c66537916223"]
     })
     .send({ gas: "5000000", from: accounts[0] });
 
