@@ -11,7 +11,9 @@ const contractPath = path.resolve(
   "ArticleBids.sol"
 );
 const source = fs.readFileSync(contractPath, "utf-8"); // path and encoding
+console.log(source);
 const output = solc.compile(source, 1).contracts;
+console.log(output);
 
 fs.ensureDirSync(buildPath); // will check if dir exists if not creates it
 
