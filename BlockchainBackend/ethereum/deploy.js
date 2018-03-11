@@ -3,7 +3,7 @@ const path = require("path");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 const Web3 = require("web3");
 
-const compiledContract = require("./build/SimpleAuction.json"); // get compiled bytecode and ABI (interface)
+const compiledContract = require("./build/ArticleBids.json"); // get compiled bytecode and ABI (interface)
 
 /* Need the following arguments for the provider instantiation below:
     1. Get the mnemonic phrase you should have recieved when you started up MetaMask
@@ -27,7 +27,7 @@ const deploy = async () => {
   )
     .deploy({
       data: compiledContract.bytecode,
-      arguments: [3600, "0x7d91277244e3d41ebd624a13d3c2c66537916223"]
+      arguments: [10]
     })
     .send({ gas: "5000000", from: accounts[0] });
 
