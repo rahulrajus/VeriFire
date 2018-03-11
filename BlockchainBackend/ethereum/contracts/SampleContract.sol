@@ -1,4 +1,4 @@
-pragma solidity ^0.4.17; 
+pragma solidity ^0.4.17;
 
 contract SimpleAuction {
     // Parameters of the auction. Times are either
@@ -17,9 +17,9 @@ contract SimpleAuction {
     // Set to true at the end, disallows any change
     bool ended;
 
-    // Modifiers can be used to easily change the behaviour of functions. 
+    // Modifiers can be used to easily change the behaviour of functions.
     // For example, they can automatically check a condition prior to executing the function.
-    // It is good to put conditions that are reused into modifiers so you don't have to repeat code 
+    // It is good to put conditions that are reused into modifiers so you don't have to repeat code
     modifier auctionIsOpen(){
         // Revert the call if the bidding
         // period is over.
