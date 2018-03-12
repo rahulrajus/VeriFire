@@ -19,26 +19,27 @@ contract ArticleBids{
     struct PermArticle {
         string url;
     }
+    event NewsEvent(
+       string name
+    );
 
     mapping(address => Voter) voters;
     Article[] articles;
     PermArticle[] perm_articles;
+    uint count = 0;
+    Article rahul;
 
     function getArticlesBids() returns (string response){
-        response = '';
-        var delimeter = '~';
-        var supersmash = '`';
-
-     //   response = ;
-
-        for (uint y = 0; y < articles.length; y++){
-            string memory num = bytes32ToString(bytes32(y));
-            response = strConcat(response, num);
-            response = strConcat(response, supersmash);
-            response = strConcat(response, articles[y].url);
-            response = strConcat(response, delimeter);
-        }
-        return response;
+      if(count != articles.length){
+        uint c = count;
+        count+=1;
+        return articles[c].url;
+      }
+      count = 0;
+      return "bob";
+    }
+    function getArticlesSize() returns (uint response){
+      return articles.length;
     }
 
     function getPermArticles() returns (string response){
@@ -55,16 +56,20 @@ contract ArticleBids{
         return response;
     }
 
-    function repopulate(){
+    function repopulate() returns(string response){
         string[] urls;
-        urls.push("http://www.foxnews.com/entertainment/2018/03/10/nun-involved-in-katy-perry-convent-lawsuit-dies-after-court-collapse.html");
-        urls.push("http://www.breitbart.com/big-government/2018/03/10/donald-trump-reveals-re-election-slogan-cant-say-make-america-great-already/");
-        urls.push("https://www.infowars.com/cnn-reports-on-controversial-satanism-inside-clinton-campaign/#disqus_thread");
+        urls[urls.length++] = "http://www.foxnews.com/entertainment/2018/03/10/nun-involved-in-katy-perry-convent-lawsuit-dies-after-court-collapse.html";
+        urls[urls.length++] = "http://www.breitbart.com/big-government/2018/03/10/donald-trump-reveals-re-election-slogan-cant-say-make-america-great-already/";
+        urls[urls.length++] = "https://www.infowars.com/cnn-reports-on-controversial-satanism-inside-clinton-campaign/#disqus_thread";
         for (uint a = 0; a < urls.length; a++){
-            Article rahul;
+
             rahul.url = urls[a];
-            articles.push(rahul);
+            articles[articles.length++] = rahul;
+            NewsEvent("http://www.foxnews.com/entertainment/2018/03/10/nun-involved-in-katy-perry-convent-lawsuit-dies-after-court-collapse.html");
         }
+
+        response = "Success!";
+        return response;
     }
 
     function repopulate_perm(){
