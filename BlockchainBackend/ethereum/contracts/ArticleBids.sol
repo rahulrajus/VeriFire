@@ -1,8 +1,8 @@
 pragma solidity ^0.4.17;
-import "http://github.com/oraclize/ethereum-api/oraclizeAPI_0.4.sol";
-import "github.com/Arachnid/solidity-stringutils/strings.sol";
+// import "http://github.com/oraclize/ethereum-api/oraclizeAPI_0.4.sol";
+// import "https://github.com/oraclize/ethereum-api/blob/master/oraclizeAPI_0.4.sol";
 
-contract ArticleBids is usingOraclize{
+contract ArticleBids{
 
     struct Voter {
         address ad;
@@ -19,37 +19,102 @@ contract ArticleBids is usingOraclize{
     struct PermArticle {
         string url;
     }
+    event NewsEvent(
+       string name
+    );
 
     mapping(address => Voter) voters;
     Article[] articles;
     PermArticle[] perm_articles;
+    uint count = 0;
+    Article rahul;
 
-    function getArticlesBids(){
-        string response = "";
-        string delimeter = "~";
-        string supersmash = "`";
-        for (uint y = 0; y < articles.length; y++){
-            string num = bytes32ToString(bytes32(y));
-            response = response.toSlice().concat(num.toSlice());
-            response = response.toSlice().concat(supersmash.toSlice());
-            response = response.toSlice().concat(articles[y].url.toSlice());
-            response = response.toSlice().concat(delimeter.toSlice());
+    function getArticlesBids() returns (string response){
+      if(count != articles.length){
+        uint c = count;
+        count+=1;
+        return articles[c].url;
+      }
+      count = 0;
+      return "bob";
+    }
+    function getArticlesSize() returns (uint response){
+      return articles.length;
+    }
+
+    function getPermArticles() returns (string response){
+        response = "";
+        var delimeter = "~";
+        var supersmash = "`";
+        for (uint y = 0; y < perm_articles.length; y++){
+            string memory num = bytes32ToString(bytes32(y));
+            response = strConcat(response, num);
+            response = strConcat(response, supersmash);
+            response = strConcat(response, perm_articles[y].url);
+            response = strConcat(response, delimeter);
         }
         return response;
     }
 
-    function getPermArticles(){
-        string response = "";
-        string delimeter = "~";
-        string supersmash = "`";
-        for (uint y = 0; y < perm_articles.length; y++){
-            string num = bytes32ToString(bytes32(y));
-            response = response.toSlice().concat(num.toSlice());
-            response = response.toSlice().concat(supersmash.toSlice());
-            response = response.toSlice().concat(perm_articles[y].url.toSlice());
-            response = response.toSlice().concat(delimeter.toSlice());
+    function repopulate() returns(string response){
+        string[] urls;
+        urls[urls.length++] = "http://www.foxnews.com/entertainment/2018/03/10/nun-involved-in-katy-perry-convent-lawsuit-dies-after-court-collapse.html";
+        urls[urls.length++] = "http://www.breitbart.com/big-government/2018/03/10/donald-trump-reveals-re-election-slogan-cant-say-make-america-great-already/";
+        urls[urls.length++] = "https://www.infowars.com/cnn-reports-on-controversial-satanism-inside-clinton-campaign/#disqus_thread";
+        for (uint a = 0; a < urls.length; a++){
+
+            rahul.url = urls[a];
+            articles[articles.length++] = rahul;
+            NewsEvent("http://www.foxnews.com/entertainment/2018/03/10/nun-involved-in-katy-perry-convent-lawsuit-dies-after-court-collapse.html");
         }
+
+        response = "Success!";
         return response;
+    }
+
+    function repopulate_perm(){
+        string[] urls;
+        urls.push("http://www.foxnews.com/entertainment/2018/03/10/nun-involved-in-katy-perry-convent-lawsuit-dies-after-court-collapse.html");
+        urls.push("http://www.breitbart.com/big-government/2018/03/10/donald-trump-reveals-re-election-slogan-cant-say-make-america-great-already/");
+        urls.push("https://www.infowars.com/cnn-reports-on-controversial-satanism-inside-clinton-campaign/#disqus_thread");
+        for (uint a = 0; a < urls.length; a++){
+            PermArticle asdf;
+            asdf.url = urls[a];
+            perm_articles.push(asdf);
+        }
+    }
+
+    function clearPerm(){
+        delete perm_articles;
+    }
+
+    function strConcat(string _a, string _b, string _c, string _d, string _e) internal returns (string){
+        bytes memory _ba = bytes(_a);
+        bytes memory _bb = bytes(_b);
+        bytes memory _bc = bytes(_c);
+        bytes memory _bd = bytes(_d);
+        bytes memory _be = bytes(_e);
+        string memory abcde = new string(_ba.length + _bb.length + _bc.length + _bd.length + _be.length);
+        bytes memory babcde = bytes(abcde);
+        uint k = 0;
+        for (uint i = 0; i < _ba.length; i++) babcde[k++] = _ba[i];
+        for (i = 0; i < _bb.length; i++) babcde[k++] = _bb[i];
+        for (i = 0; i < _bc.length; i++) babcde[k++] = _bc[i];
+        for (i = 0; i < _bd.length; i++) babcde[k++] = _bd[i];
+        for (i = 0; i < _be.length; i++) babcde[k++] = _be[i];
+        return string(babcde);
+    }
+
+    function strConcat(string _a, string _b, string _c, string _d) internal returns (string) {
+        return strConcat(_a, _b, _c, _d, "");
+    }
+
+    function strConcat(string _a, string _b, string _c) internal returns (string) {
+        return strConcat(_a, _b, _c, "", "");
+    }
+
+    function strConcat(string _a, string _b) internal returns (string) {
+        return strConcat(_a, _b, "", "", "");
     }
 
     function bytes32ToString (bytes32 data) returns (string) {
@@ -63,7 +128,7 @@ contract ArticleBids is usingOraclize{
         return string(bytesString);
     }
 
-    function callThisToStart(){
+    /*function callThisToStart(){
         oraclize_query(600, "URL", "");
     }
 
@@ -78,8 +143,21 @@ contract ArticleBids is usingOraclize{
                 perm_articles.push(temp);
             }
         }
-        articles = [];
+        delete articles;
         callThisToStart();
+    }*/
+
+    function expire(uint256 toArticle){
+        for(uint x = 0; x < articles.length; x++)
+        {
+            returnPayout(x);
+            if (articles[x].status > 0){
+                PermArticle temp;
+                temp.url = articles[x].url;
+                perm_articles.push(temp);
+            }
+        }
+        delete articles;
     }
 
     /// Create a new ballot with $(_numProposals) different proposals.
@@ -111,7 +189,7 @@ contract ArticleBids is usingOraclize{
     // }
 
     /// Give a single vote to proposal $(toProposal).
-    function vote(uint8 toArticle, uint typ) public payable {
+    function vote(uint256 toArticle, uint typ) public payable {
         //Voter storage sender = voters[msg.sender];
 
         if(articles.length-toArticle < 10)
@@ -135,7 +213,7 @@ contract ArticleBids is usingOraclize{
             articles[toArticle].upvoters[articles[toArticle].upvotes] = v;
         }
     }
-    function returnPayout(uint8 toArticle) public payable {
+    function returnPayout(uint256 toArticle) public payable {
         if(articles[toArticle].upvotes >= articles[toArticle].downvotes)
         {
             articles[toArticle].status = 1;
