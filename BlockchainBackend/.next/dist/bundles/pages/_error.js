@@ -72,18 +72,18 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "/Users/Rahul/GoogleDrive/Personal_Projects/PoliFund/BlockchainBackend/node_modules/next/dist/pages/_error.js":
-/***/ (function(module, exports) {
-
-module.exports = require("/Users/Rahul/GoogleDrive/Personal_Projects/PoliFund/BlockchainBackend/node_modules/next/dist/pages/_error.js");
-
-/***/ }),
-
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("/Users/Rahul/GoogleDrive/Personal_Projects/PoliFund/BlockchainBackend/node_modules/next/dist/pages/_error.js");
+module.exports = __webpack_require__("C:\\Users\\anees\\VeriFire\\BlockchainBackend\\node_modules\\next\\dist\\pages\\_error.js");
 
+
+/***/ }),
+
+/***/ "C:\\Users\\anees\\VeriFire\\BlockchainBackend\\node_modules\\next\\dist\\pages\\_error.js":
+/***/ (function(module, exports) {
+
+module.exports = require("C:\\Users\\anees\\VeriFire\\BlockchainBackend\\node_modules\\next\\dist\\pages\\_error.js");
 
 /***/ })
 
